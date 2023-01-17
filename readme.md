@@ -1,19 +1,19 @@
-# matrixLib
+# 🔢 matrixLib
 
-a small c library for linear algebra and the related
+a small C library for linear algebra and the related
 
 ## 🧠 Design
 
-This library was made with the goal of using simple algorithms to aid in the solving of simple to intermediate linear algebra problems/calculations. They are not optimized, mostly being used for my linear algebra class homework + some c practice.
+This library was made with the goal of using simple algorithms to aid in the solving of easy to intermediate linear algebra problems/calculations. They are not optimized, mostly being used for my linear algebra class homework + some c practice.
 
-## How to install
+## 🖥️ How to install
 As of now, I havent standardized or scripted the full installation process, but there are a few options for compilation:
 
-`make staticlib`: makes a static `libmatrix.a` file
+`make staticlib`: produces a static `libmatrix.a` file
 
-`make dynamiclib`: makes a dynamic `libmatrix.so` file
+`make dynamiclib`: produces a dynamic `libmatrix.so` file
 
-You probably would want to copy these to wherever your libraries are souced (ie. `/usr/lib`). Other script rules include:
+You probably would want to copy these to wherever your libraries are sourced (ie. `/usr/lib`). Other script rules include:
 
 `make testbin`: produces all test binaries sourced from `tests/`
 
@@ -48,6 +48,35 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 ```
+
+## 📌 Current Functionality
+
+### io functionality
+* read from console
+* print to console
+* read from file
+
+### constructors & deconstructors
+* init zeroed matrices
+* init identity matrices
+* copy matrices
+* free matrix objects
+
+### manipulation functionalty
+* swap rows
+* add rows
+* multiply rows by scalar
+* swap columns
+* add columns
+* multiply columns by scalar
+
+### arithmetic functionality
+* multiply matrices by scalar
+* add matrices
+* compare matrices (decimal precision configurable through source header)
+* transpose matrices
+* multiply matrices
+
 ## 👤 Authored by 
 
 Jonathan Kocevar
