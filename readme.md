@@ -4,7 +4,7 @@ a small c library for linear algebra and the related
 
 ## 🧠 Design
 
-This library was made with the goal of using simple algorithms to aid in the solving of simple to intermediate linear algebra problems.
+This library was made with the goal of using simple algorithms to aid in the solving of simple to intermediate linear algebra problems/calculations.
 
 ## ⚙️ Examples
 ```c

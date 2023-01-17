@@ -1,35 +1,61 @@
 CC := gcc
 CFLAGS := -std=c99 -Wall -pedantic -g
+LIBFILE_PATH := src/
+TESTFILE_PATH := tests/
+LIBFILES := matrix_io.c matrix_init.c matrix_edit.c matrix_arithmetic.c
+OBJFILES := matrix_io.o matrix_init.o matrix_edit.o matrix_arithmetic.o
+TESTFILES := from_console.c identity.c zeroed.c
+TESTBINARYS := from_console identity zeroed
 
-# -------------------------------- TESTS --------------------------------
-all:
-	@echo "COMPILING ALL TARGETS"
-	make -s mol.o
-	make -s libmol.so
-	make -s given_test1
-	make -s custom_test1
-	make -s playground
+##################################################################
+######################## collective rules ########################
+##################################################################
 
-given_test1: tests/given_test1.c mol.o
-	$(CC) $(CFLAGS) -o bin/given_test1 tests/given_test1.c mol.o
+all: testbin staticlib dynamiclib
 
-custom_test1: tests/custom_test1.c mol.o
-	$(CC) $(CFLAGS) -o bin/custom_test1 tests/custom_test1.c mol.o
+staticlib: libmatrix.a
+dynamiclib: libmatrix.so
+testbin: $(TESTFILE_PATH)$(TESTFILES) $(OBJFILES)
+	$(CC) $(CFLAGS) -o $@ $^
 
-playground: tests/playground.c mol.o
-	$(CC) $(CFLAGS) -o bin/playground tests/playground.c mol.o
+##################################################################
+########################### test rules ###########################
+##################################################################
 
-# --------------------------------- LIBS --------------------------------
-mol.o: mol.c mol.h
-	$(CC) $(CFLAGS) -c -fPIC mol.c
+#%: $(test)
 
-libmol.so: mol.c mol.h
-	$(CC) $(CFLAGS) -fPIC -shared -o libmol.so mol.c -lc
+#$(TESTBINARYS): $(TESTFILE_PATH)$(TESTFILES) $(OBJFILES)
+#	$(CC) $(CFLAGS) -o $@ $^
 
-# -------------------------------- TOOLS --------------------------------
+#from_console: tests/from_console.c $(OBJFILES)
+#	$(CC) $(CFLAGS) -o $@ $^
+
+#identity: tests/from_console.c $(OBJFILES)
+#	$(CC) $(CFLAGS) -o $@ $^
+
+##################################################################
+######################### library rules ##########################
+##################################################################
+
+%.o: $(LIBFILE_PATH)%.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+libmatrix.a: $(OBJFILES)
+	@echo "PRODUCING STATIC LIBRARY"
+	ar rcs $@ $^
+
+libmatrix.so: $(OBJFILES)
+	@echo "PRODUCING DYNAMIC LIBRARY"
+	$(CC) $(CFLAGS) -fPIC -shared -o $@ $^ -lc
+
+##################################################################
+####################### orginization rules #######################
+##################################################################
+
 clean:
 	@echo "REMOVING ALL BINARIES, OBJ FILES, LIBRARIES, AND DOTFILES"
-	rm -f *.o 
-	rm -f *.so 
-	rm -f bin/*
+	rm -f $(OBJFILES)
+	rm -f $(TESTBINARYS)
+	rm -f *.so
+	rm -f *.a
 	rm -f vgcore.*
