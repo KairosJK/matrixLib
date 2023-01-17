@@ -1,10 +1,15 @@
 CC := gcc
 CFLAGS := -std=c99 -Wall -pedantic -g
+
+HEADER_COL:=$(shell tput setaf 6)
+HEADER_RESET:=$(shell tput sgr0)
+
 LIBFILE_PATH := src/
 TESTFILE_PATH := tests/
+
 LIBFILES := matrix_io.c matrix_init.c matrix_edit.c matrix_arithmetic.c
 OBJFILES := matrix_io.o matrix_init.o matrix_edit.o matrix_arithmetic.o
-TESTFILES := from_console.c identity.c zeroed.c
+
 TESTBINARYS := from_console identity zeroed
 
 ##################################################################
@@ -15,23 +20,16 @@ all: testbin staticlib dynamiclib
 
 staticlib: libmatrix.a
 dynamiclib: libmatrix.so
-testbin: $(TESTFILE_PATH)$(TESTFILES) $(OBJFILES)
-	$(CC) $(CFLAGS) -o $@ $^
+testbin: 
+	$(info $(HEADER_COL)PRODUCING TEST EXECUTABLES$(HEADER_RESET))
+	@make $(TESTBINARYS)
 
 ##################################################################
 ########################### test rules ###########################
 ##################################################################
 
-#%: $(test)
-
-#$(TESTBINARYS): $(TESTFILE_PATH)$(TESTFILES) $(OBJFILES)
-#	$(CC) $(CFLAGS) -o $@ $^
-
-#from_console: tests/from_console.c $(OBJFILES)
-#	$(CC) $(CFLAGS) -o $@ $^
-
-#identity: tests/from_console.c $(OBJFILES)
-#	$(CC) $(CFLAGS) -o $@ $^
+$(TESTBINARYS): %: $(TESTFILE_PATH)%.c $(OBJFILES)
+	$(CC) $(CFLAGS) -o $@ $< $(OBJFILES)
 
 ##################################################################
 ######################### library rules ##########################
@@ -41,11 +39,11 @@ testbin: $(TESTFILE_PATH)$(TESTFILES) $(OBJFILES)
 	$(CC) $(CFLAGS) -c -o $@ $^
 
 libmatrix.a: $(OBJFILES)
-	@echo "PRODUCING STATIC LIBRARY"
+	$(info $(HEADER_COL)PRODUCING STATIC LIBRARY$(HEADER_RESET))
 	ar rcs $@ $^
 
 libmatrix.so: $(OBJFILES)
-	@echo "PRODUCING DYNAMIC LIBRARY"
+	$(info $(HEADER_COL)PRODUCING DYNAMIC LIBRARY$(HEADER_RESET))
 	$(CC) $(CFLAGS) -fPIC -shared -o $@ $^ -lc
 
 ##################################################################
@@ -53,7 +51,7 @@ libmatrix.so: $(OBJFILES)
 ##################################################################
 
 clean:
-	@echo "REMOVING ALL BINARIES, OBJ FILES, LIBRARIES, AND DOTFILES"
+	$(info $(shell tput setaf 1)REMOVING ALL BINARIES, OBJ FILES, LIBRARIES, AND DOTFILES$(HEADER_RESET))
 	rm -f $(OBJFILES)
 	rm -f $(TESTBINARYS)
 	rm -f *.so
