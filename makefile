@@ -18,8 +18,12 @@ TESTBINARYS := from_console identity zeroed from_file basic_arithmetic
 
 all: testbin staticlib dynamiclib
 
-staticlib: libmatrix.a
-dynamiclib: libmatrix.so
+staticlib:
+	$(info $(HEADER_COL)PRODUCING STATIC LIBRARY$(HEADER_RESET))
+	@make libmatrix.a
+dynamiclib:
+	$(info $(HEADER_COL)PRODUCING DYNAMIC LIBRARY$(HEADER_RESET))
+	@make libmatrix.so
 testbin: 
 	$(info $(HEADER_COL)PRODUCING TEST EXECUTABLES$(HEADER_RESET))
 	@make $(TESTBINARYS)
@@ -39,11 +43,9 @@ $(TESTBINARYS): %: $(TESTFILE_PATH)%.c $(OBJFILES)
 	$(CC) $(CFLAGS) -c -o $@ $^
 
 libmatrix.a: $(OBJFILES)
-	$(info $(HEADER_COL)PRODUCING STATIC LIBRARY$(HEADER_RESET))
 	ar rcs $@ $^
 
 libmatrix.so: $(OBJFILES)
-	$(info $(HEADER_COL)PRODUCING DYNAMIC LIBRARY$(HEADER_RESET))
 	$(CC) $(CFLAGS) -fPIC -shared -o $@ $^ -lc
 
 ##################################################################

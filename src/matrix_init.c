@@ -67,11 +67,7 @@ matrix matrix_copy(matrix a)
  */
 int matrix_free(matrix * a)
 {
-    // Frees allocated memory from matrix
-    //      > Returns number of frees
-    
     int i;
-
     for(i = 0; i < a->n; i++)
     {
         free(a->arr[i]);
