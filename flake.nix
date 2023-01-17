@@ -1,5 +1,5 @@
 {
-  description = "cis2750 A1 devkit";
+  description = "matrixlib devkit";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
