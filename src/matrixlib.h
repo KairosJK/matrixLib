@@ -34,6 +34,8 @@ typedef struct matrix
 // ~~~~~~~~~~~~~~ //
 
 void matrix_io_print(const matrix matrixInput);
+matrix matrix_io_read_console();
+matrix matrix_io_read_file();
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 //  constructors & deconstructors  //
@@ -41,7 +43,6 @@ void matrix_io_print(const matrix matrixInput);
 
 matrix matrix_init_zero(unsigned int n, unsigned int m);
 matrix matrix_init_identity(unsigned int n);
-matrix matrix_init_console();
 matrix matrix_copy(matrix a);
 int matrix_free(matrix * a);
 

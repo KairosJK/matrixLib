@@ -41,53 +41,6 @@ matrix matrix_init_identity(unsigned int n)
 }
 
 /**
- * @brief initialize new matrix from console
- * @return matrix newly allocated matrix
- */
-matrix matrix_init_console()
-{
-    int n, m;
-
-    printf("Please enter column length: ");
-    while(1)
-    {
-        int num_scanned = scanf("%d", &n);
-        if((n > 0 && n < MAX_DIMENSIONS) || num_scanned != 1)
-        {
-            break;
-        }
-        printf("Input cannot consist of negative integers, or above hardcoded limit, which is set to %d. Try again.\n", MAX_DIMENSIONS);
-    }
-
-    printf("Please enter row width: ");
-    while(1)
-    {
-        int num_scanned = scanf("%d", &m);
-        if((m > 0 && m < MAX_DIMENSIONS) || num_scanned != 1)
-        {
-            break;
-        }
-        printf("Input cannot consist of negative integers, or above hardcoded limit, which is set to %d. Try again.\n", MAX_DIMENSIONS);
-    }
-
-    matrix newMatrix = matrix_init_zero(n, m);
-
-    for(int i = 0; i < n; i++)
-    {
-        for(int j = 0; j < m; j++)
-        {
-            printf("Enter element for cell [%d][%d]: ", i+1, j+1);
-            if(scanf("%lf", &newMatrix.arr[i][j]) != 1) {
-                printf("Something went wrong with the input, try again.\n");
-                j--;
-            };
-        }
-    }
-
-    return newMatrix;
-}
-
-/**
  * @brief Copies data from given matrix to new matrix
  * @param a matrix to be copied
  * @return matrix new copied matrix
