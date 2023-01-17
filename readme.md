@@ -8,11 +8,31 @@ This library was made with the goal of using simple algorithms to aid in the sol
 
 ## ⚙️ Examples
 ```c
-#include <stdio.c>
+#include <stdio.h>
+#include "matrixlib.h"
 
 int main(void) {
-  printf("Hello world!\n");
-  return 0;
+
+    // init matrix objects from file
+    matrix a = matrix_io_read_file(fopen("tests/data/test_3x3_1.csv", "r"));
+    matrix b = matrix_io_read_file(fopen("tests/data/test_3x3_2.csv", "r"));
+
+    // addition
+    matrix a_plus_b = matrix_add(a, b);
+
+    // transpose
+    matrix transpose_a = matrix_transpose(a);
+
+    // print to stdout row by row
+    matrix_io_print(a_plus_b);
+
+    // free objects
+    matrix_free(&a_plus_b);
+    matrix_free(&transpose_a);
+    matrix_free(&a);
+    matrix_free(&b);
+
+    return EXIT_SUCCESS;
 }
 ```
 ## 👤 Authored by 

@@ -10,7 +10,7 @@ TESTFILE_PATH := tests/
 LIBFILES := matrix_io.c matrix_init.c matrix_edit.c matrix_arithmetic.c
 OBJFILES := matrix_io.o matrix_init.o matrix_edit.o matrix_arithmetic.o
 
-TESTBINARYS := from_console identity zeroed from_file
+TESTBINARYS := from_console identity zeroed from_file basic_arithmetic
 
 ##################################################################
 ######################## collective rules ########################

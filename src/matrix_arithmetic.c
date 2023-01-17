@@ -18,8 +18,8 @@ matrix matrix_add(const matrix a, const matrix b)
 
     if(a.n != b.n || a.m != b.m)
     {
-        printf("Matrices must have same collumn and row length to add and subtract:\n\tFirst matrix: %dx%d\n\tSecond matrix: %dx%d\nReturning null matrix.\n", a.n, a.m, b.n, b.m);
-        return summationMatrix;
+        fprintf(stderr, "Error: %s: matrices must have same collumn and row length to add and subtract.\n", __func__);
+        abort();
     }
 
     for(int i = 0; i < a.n; i++)
@@ -70,14 +70,11 @@ matrix matrix_transpose(const matrix a)
 matrix matrix_multiply(const matrix a, const matrix b)
 {
     matrix newMatrix = matrix_init_zero(a.n, b.m);
-    
-    matrix_io_print(a);
-    matrix_io_print(b);
 
     if(a.m != b.n)
     {
-        // Not conformable
-        return newMatrix;
+        fprintf(stderr, "Error: %s: cannot multiply matricies who do not share the comformable dimensions.\n", __func__);
+        abort();
     }
 
     for(int i = 0; i < newMatrix.n; i++)

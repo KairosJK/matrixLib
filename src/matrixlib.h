@@ -15,18 +15,18 @@
 //  matrix struct and common defines  //
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
-// Max dimensions for matrices
-#define MAX_DIMENSIONS      1000
-// Double comparison precision
+// max dimensions for matrices
+#define MAX_DIMENSIONS      10000
+// double comparison precision
 #define DECIMAL_PRECISION   0.00001
-// Double print precision (%.*lf)
-#define PRINT_PRECISION 2
+// double print precision (%.*lf)
+#define PRINT_PRECISION     2
 
 typedef struct matrix
 {
-    double ** arr;
-    unsigned int n; // Array row count
-    unsigned int m; // Array column count
+    double ** arr;  // set to double, changing to another data type would probably be as simple as just find+replace "double"
+    unsigned int n; // array row count
+    unsigned int m; // array column count
 }matrix;
 
 // ~~~~~~~~~~~~~~ //

@@ -1,6 +1,6 @@
 ## Format for Matrix Files
 
-The sample at `tests/data/3x3.csv` shows a simple example:
+The sample at `tests/data/example.csv` shows a simple example:
 
 ```
 3,3,
